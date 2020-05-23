@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Student } from '../student';
-import { StudentList } from "../mock-students";
+import { StudentService } from '../student.service';
 
 @Component({
   selector: 'app-students',
@@ -9,15 +9,21 @@ import { StudentList } from "../mock-students";
 })
 export class StudentsComponent implements OnInit {
 
-  students = StudentList;
+  students: Student[];
   
   selectedStudent: Student;
-  constructor() { }
+  constructor( private studentService: StudentService) { }
 
   ngOnInit(): void {
+    this.getStudents();
   }
 
   onSelect(student: Student): void {
     this.selectedStudent = student;
+  }
+
+  getStudents(): void {
+    this.studentService.getStudents()
+      .subscribe(students => this.students = students);
   }
 }
