@@ -1,15 +1,23 @@
-<h2>{{student.fname | titlecase}}'s Details </h2>
-<div><span>Id: </span>{{student.id}}</div>
-<div><span>First Name: </span>{{student.fname | titlecase}}</div>
-<div><span>Last Name: </span>{{student.lname | titlecase}}</div>
+<h2>Student List</h2>
+<ul class="students">
+    <li *ngFor="let student of students"  [class.selected]="student === selectedStudent" (click)="onSelect(student)">
+        <span class="badge">{{student.id}}</span>{{student.fname}} {{student.lname}}
+    </li>
+</ul>
 
-<h3>Edit Details</h3>
-<div>
-    <label> First Name: 
-        <input [(ngModel)]="student.fname" placeholder="First Name" />
-    </label><br/><br/>
-    <label> Last Name: 
-        <input [(ngModel)]="student.lname" placeholder="Last Name" />
-    </label>
+<div *ngIf="selectedStudent">
+    <h2>{{selectedStudent.fname}}'s Details</h2>
+    <div>
+        <span>Id: </span>{{selectedStudent.id}}
+    </div>
+    <div>
+        <label> First Name: 
+            <input [(ngModel)]="selectedStudent.fname" placeholder="First Name" />
+        </label>
+    </div>
+    <div>
+        <label> Last Name: 
+            <input [(ngModel)]="selectedStudent.lname" placeholder="Last Name" />
+        </label>
+    </div>
 </div>
-<!-- Angular Project created using https://angular.io/ -->
