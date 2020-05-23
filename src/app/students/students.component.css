@@ -20,13 +20,17 @@
     background-color: #DDD;
     left: .1em;
   }
-  .students li.selected {
-    background-color: #CFD8DC;
-    color: white;
+
+  .students a {
+    color: #333;
+    text-decoration: none;
+    position: relative;
+    display: block;
+    width: 250px;
   }
-  .students li.selected:hover {
-    background-color: #BBD8DC;
-    color: white;
+  
+  .students a:hover {
+    color:#607D8B;
   }
   .students .badge {
     display: inline-block;

@@ -15,4 +15,9 @@ export class StudentService {
     this.messageService.add('StudentService: fetched students');
     return of(StudentList);
   }
+
+  getStudent(id: number): Observable<Student> {
+    this.messageService.add(`StudentService: fetched student id = ${id}`);
+    return of(StudentList.find(student => student.id === id));
+  }
 }
