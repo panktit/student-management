@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "student-management"
+    }
+  },
+  "defaultProject": "student-management",
+  "cli": {
+    "analytics": "dc78b0c8-84d0-4a26-bd7f-5e7ebb5f764a"
+  }
 }

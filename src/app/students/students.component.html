@@ -1,0 +1,15 @@
+<h2>{{student.fname | titlecase}}'s Details </h2>
+<div><span>Id: </span>{{student.id}}</div>
+<div><span>First Name: </span>{{student.fname | titlecase}}</div>
+<div><span>Last Name: </span>{{student.lname | titlecase}}</div>
+
+<h3>Edit Details</h3>
+<div>
+    <label> First Name: 
+        <input [(ngModel)]="student.fname" placeholder="First Name" />
+    </label><br/><br/>
+    <label> Last Name: 
+        <input [(ngModel)]="student.lname" placeholder="Last Name" />
+    </label>
+</div>
+<!-- Angular Project created using https://angular.io/ -->
