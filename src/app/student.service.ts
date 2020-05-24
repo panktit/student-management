@@ -35,7 +35,6 @@ export class StudentService {
   }
 
   updateStudent(student: Student): Observable<any> {
-    console.log("Student in servie update: ",student);
     return this.http.put(this.studentsUrl, student, this.httpOptions)
       .pipe(
         tap(_ => this.log(`updated student id = ${student.id}`)),
@@ -44,7 +43,6 @@ export class StudentService {
   }
 
   addStudent(student: Student): Observable<Student> {
-    console.log("Student in service add: " ,student)
     return this.http.post<Student>(this.studentsUrl, student, this.httpOptions)
       .pipe(
         tap((newStudent: Student) => this.log(`added student with id = ${newStudent.id}`)),
@@ -61,6 +59,20 @@ export class StudentService {
         tap(_ => this.log(`deleted student id = ${id}`)),
         catchError(this.handleError<Student>('deleteStudent'))
     );
+  }
+
+  searchStudents(term: string): Observable<Student[]> {
+    if(!term.trim()) {
+      return of([]);
+    }
+
+    return this.http.get<Student[]>(`${this.studentsUrl}/?fname=${term}`)
+      .pipe(
+        tap(x => x.length ? 
+          this.log(`found students matching "${term}"`):
+          this.log(`no students matching "${term}"`)),
+          catchError(this.handleError<Student[]>('searchStudents', []))
+      );
   }
   
   private log(message: string) {

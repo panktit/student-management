@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+
+import {
+  debounceTime, distinctUntilChanged, switchMap
+} from 'rxjs/operators';
+import { StudentService } from '../student.service';
+import { Student } from '../student';
 
 @Component({
   selector: 'app-student-search',
@@ -7,9 +14,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentSearchComponent implements OnInit {
 
-  constructor() { }
+  students$: Observable<Student[]>;
+  private searchTerms = new Subject<string>();
+
+  constructor(private studentService : StudentService) { }
+
+  search(term: string): void {
+    this.searchTerms.next(term);
+  }
 
   ngOnInit(): void {
+    this.students$ = this.searchTerms
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((term: string) => this.studentService.searchStudents(term)),
+      );
   }
 
 }
