@@ -21,4 +21,20 @@ export class StudentsComponent implements OnInit {
     this.studentService.getStudents()
       .subscribe(students => this.students = students);
   }
+
+  add(fname: string, lname: string): void {
+    fname = fname.trim();
+    lname = lname.trim();
+    if (!fname || !lname) { return; }4
+    console.log("In component add: ",{ fname, lname } as Student);
+    this.studentService.addStudent({ fname, lname } as Student)
+      .subscribe(student => {
+        this.students.push(student);
+      });
+  }
+
+  delete(student: Student): void {
+    this.students = this.students.filter(s => s !== student);
+    this.studentService.deleteStudent(student).subscribe();
+  }
 }

@@ -28,6 +28,10 @@ export class StudentDetailComponent implements OnInit {
       .subscribe(student => this.student = student);
   }
 
+  save(): void {
+    this.studentService.updateStudent(this.student)
+      .subscribe(() => this.goBack());
+  }
   goBack(): void {
     this.location.back();
   }
